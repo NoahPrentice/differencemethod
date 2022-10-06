@@ -68,6 +68,6 @@ def diff():
                     print("B is")
                     print(B)
                     coefficients = np.linalg.solve(A, B) #Generate the coefficients of the closed form (like a,b,c,d in an^3 + bn^2 + cn + d).
-                    print("And the coefficients are, in order of descending powers of n,", coefficients) #Print the coefficients in list form. 
+                    print("And the coefficients are, in order of descending powers of n,", coefficients, "starting at n = 1.") #Print the coefficients in list form. 
                 return
 diff()

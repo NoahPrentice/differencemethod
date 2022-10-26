@@ -5,4 +5,4 @@ To use the program, run it and input the first several terms in any sequence, pr
 
 The program will output the original sequence, as well as all of the sequences of differences between terms until the first sequence with all zeroes, if one exists. If one exists, then, from the number of terms, given, the sequence appears to be a polynomial sequence, and so the program will find the coefficients of the polynomial sequence using linear algebra. 
 
-It will print the two matrices used in the calculation, and then will output the coefficients of the closed form polynomial, in the order of descending powers of n. So, if the output for the coefficients is [3 5 0 1 2], the closed form will be 3n^4 + 5n^3 + n + 2, where the first term of the sequence corresponds to n = 1.
+It will print the two matrices used in the calculation, and then will output the coefficients of the closed form polynomial, in the order of descending powers of n. So, if the output for the coefficients is [3 5 0 1 2], the closed form will be 3n^4 + 5n^3 + n + 2, where the first term of the sequence corresponds to n = 1 or 0, depending on what you input when asked.

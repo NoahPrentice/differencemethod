@@ -52,22 +52,65 @@ def diff():
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Finding a closed form ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-                    Alist = [] #We'll find a closed form using linear algebra.
-                    Blist = [] #We need matrices, so we'll create lists for the matrices A and B for python stuff and then turn them into matrices later.
-                    for i in list(range(deg + 1)):
-                        Blist.append(S[i]) #Creating B.
-                        Arow = [] #Creating a "dummy" list for each row of A.
-                        for j in list(range(deg + 1)):
-                            a = (i + 1)**(deg - j) #Creating a "dummy" variable for each entry of A.
-                            Arow.append(a) #Adding that to the row of A.
-                        Alist.append(Arow) #Adding that row to A. This completes one row, and will loop through to the next one.
-                    A = np.array(Alist) #Turn the lists into matrices.
-                    B = np.array(Blist)
-                    print("A is:")
-                    print(A)
-                    print("B is")
-                    print(B)
-                    coefficients = np.linalg.solve(A, B) #Generate the coefficients of the closed form (like a,b,c,d in an^3 + bn^2 + cn + d).
-                    print("And the coefficients are, in order of descending powers of n,", coefficients, "starting at n = 1.") #Print the coefficients in list form. 
+                    nstartinput = input("Would you like the closed form to start at n = 0 or n = 1? (Input only 0 or 1.) ") #Ask where to start the closed form.
+                    try: #Make sure it's a number
+                        int(nstartinput)
+                    except:
+                        print("Input must be 0 or 1.")
+                        return
+                    else:
+                        nstart = int(nstartinput)
+                        if nstart > 1 or nstart < 0: #Make sure it's a 0 or a 1.
+                            print("Input must be 0 or 1.")
+                            return
+                        Alist = [] #We'll find a closed form using linear algebra.
+                        Blist = [] #We'll create lists for the matrices A and B for python stuff and then turn them into matrices later.
+                        if nstart == 1:
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CASE 1: Starting at n = 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+                            for i in list(range(deg + 1)):
+                                Blist.append(S[i]) #Creating B.
+                                Arow = [] #Creating a "dummy" list for each row of A.
+                                for j in list(range(deg + 1)):
+                                    a = (i + 1)**(deg - j) #Creating a "dummy" variable for each entry of A.
+                                    Arow.append(a) #Adding that to the row of A.
+                                Alist.append(Arow) #Adding that row to A. This completes one row, and will loop through to the next one.
+                            A = np.array(Alist) #Turn the lists into matrices.
+                            B = np.array(Blist)
+                            print("A is:")
+                            print(A)
+                            print("B is")
+                            print(B)
+                            coefficients = np.linalg.solve(A, B) #Generate the coefficients of the closed form (like a,b,c,d in an^3 + bn^2 + cn + d).
+                            print("And the coefficients are, in order of descending powers of n,", coefficients, "starting at n = 1.") #Print the coefficients in list form.
+                        else:
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CASE 2: Starting at n = 0 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+                            for i in list(range(deg + 1)):
+                                Blist.append(S[i]) #Creating B.
+                                Arow = [] #Creating a "dummy" list for each row of A.
+                                if i == 0:
+                                    for j in list(range(deg + 1)): #The difference for the n = 0 case is what A looks like.
+                                        if j == deg:               #In particular, we need the first row to be all zeroes (except for the last entry).
+                                            a = 1
+                                            Arow.append(a)
+                                        else:
+                                            a = 0
+                                            Arow.append(a)
+                                else:
+                                    for j in list(range(deg + 1)): #Then, the remaining rows follow the same pattern as the rows for n = 1, but there's an offset
+                                        a = (i)**(deg - j) #Creating a "dummy" variable for each entry of A.
+                                        Arow.append(a) #Adding that to the row of A.
+                                Alist.append(Arow) #Adding that row to A. This completes one row, and will loop through to the next one.
+                            A = np.array(Alist) #Turn the lists into matrices.
+                            B = np.array(Blist)
+                            print("A is:")
+                            print(A)
+                            print("B is")
+                            print(B)
+                            coefficients = np.linalg.solve(A, B) #Generate the coefficients of the closed form (like a,b,c,d in an^3 + bn^2 + cn + d).
+                            print("And the coefficients are, in order of descending powers of n,", coefficients, "starting at n = " + str(nstart) + ".") #Print the coefficients in list form.
                 return
 diff()
